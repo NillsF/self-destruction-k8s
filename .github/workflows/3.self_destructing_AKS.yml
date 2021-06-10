@@ -4,8 +4,8 @@ on:
   push:
     branches: [ main ]
     paths:
-    - 4.Self_destructing_cluster**
-    - .github/workflows/4.self_destructing_AKS.yml
+    - 3.Self_destructing_cluster**
+    - .github/workflows/3.self_destructing_AKS.yml
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: 4.Self_destructing_cluster
+        working-directory: 3.Self_destructing_cluster
     env:
       ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
       ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
@@ -26,7 +26,7 @@ jobs:
         run: terraform init
 
       - name: Terraform plan
-        run: terraform plan -out plan.out -var resource_group_name=devnetwork-aks-$(echo ${GITHUB_SHA} | cut -c1-6)
+        run: terraform plan -out plan.out -var resource_group_name=devtalks-aks-$(echo ${GITHUB_SHA} | cut -c1-6)
 
       - name: Terraform apply
         run: terraform apply plan.out
@@ -44,7 +44,7 @@ jobs:
         run: echo ${{ env.CLIENTID }}
 
       - name: Create configmap
-        run: kubectl create --kubeconfig ./kubeconfig configmap az-config --from-literal=rgname=devnetwork-aks-$(echo ${GITHUB_SHA} | cut -c1-6) --from-literal=clientid=${{ env.CLIENTID }}
+        run: kubectl create --kubeconfig ./kubeconfig configmap az-config --from-literal=rgname=devtalks-aks-$(echo ${GITHUB_SHA} | cut -c1-6) --from-literal=clientid=${{ env.CLIENTID }}
         
       - name: Create delete job
         run: kubectl create --kubeconfig ./kubeconfig -f job.yaml
