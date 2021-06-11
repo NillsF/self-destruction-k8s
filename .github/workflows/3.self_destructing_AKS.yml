@@ -1,4 +1,4 @@
-name: 4. Self Destruct cluster
+name: 3. Self Destruct cluster
 
 on:
   push:
