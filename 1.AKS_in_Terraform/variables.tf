@@ -15,7 +15,7 @@ variable cluster_name {
 }
 
 variable resource_group_name {
-    default = "devnetwork-aks-1"
+    default = "devtalks-aks-1"
 }
 
 variable location {
