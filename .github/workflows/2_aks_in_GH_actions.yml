@@ -26,7 +26,7 @@ jobs:
         run: terraform init
 
       - name: Terraform plan
-        run: terraform plan -out plan.out -var resource_group_name=devnetwork-ask-$(echo ${GITHUB_SHA} | cut -c1-6)
+        run: terraform plan -out plan.out -var resource_group_name=devtalks-ask-$(echo ${GITHUB_SHA} | cut -c1-6)
         
       - name: Terraform apply
         run: terraform apply plan.out
